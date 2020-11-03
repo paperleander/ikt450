@@ -4,11 +4,17 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
+# https://seklima.met.no/observations/
 path = 'data/year.xlsx'
 df = pd.read_excel(path, sep=';')
 
+print(df.describe())
 print(df.dtypes)
 print(df)
+
+# TESTING
+# Only work with temperatures
+df = df['Temp']
 
 # Create train and test
 n_rows = df.shape[0]
@@ -19,8 +25,8 @@ test = df[split:]
 
 
 #Plotting data
-train.plot(figsize=(15,8), title= 'Daily weather', fontsize=14)
-test.plot(figsize=(15,8), title= 'Daily weather', fontsize=14)
+train.plot(figsize=(15,8), title= 'Daily Temperatures', fontsize=14)
+test.plot(figsize=(15,8), title= 'Daily Temperatures', fontsize=14)
 plt.show()
 
 

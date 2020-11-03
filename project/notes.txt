@@ -3,3 +3,6 @@ https://medium.com/@stallonejacob/time-series-forecast-a-basic-introduction-usin
 -statistisk analyse
 -Auto regressive metoder
 -ikke deep ai, men normale statistiske metoder vi burde prøve først
+
+TIME SERIES / DATE
+https://pandas.pydata.org/docs/user_guide/timeseries.html
