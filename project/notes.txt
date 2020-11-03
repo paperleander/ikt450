@@ -1,0 +1,5 @@
+Time Series Forecast : A basic introduction using Python.
+https://medium.com/@stallonejacob/time-series-forecast-a-basic-introduction-using-python-414fcb963000
+-statistisk analyse
+-Auto regressive metoder
+-ikke deep ai, men normale statistiske metoder vi burde prøve først
