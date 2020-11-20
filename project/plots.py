@@ -7,6 +7,8 @@ import seaborn as sns
 
 import datetime
 from pandas import Grouper
+from pandas.plotting import lag_plot
+from pandas.plotting import autocorrelation_plot
 # https://seklima.met.no/observations/
 
 path = 'data/landvik/landvik_2005_2020.csv'
@@ -31,10 +33,10 @@ df.drop(columns=["Temp(Max)", "Temp(Min)", "Wind(Max)", "Wind(Mid)"], inplace=Tr
 # Fill in missing values
 df.interpolate().reset_index() # Fill missing values
 
-now = str(datetime.datetime.now())
+# Get date for saving files
+now = datetime.datetime.now()
+now = now.strftime("%Y-%m-%d_%H:%M:%S")
 
-#def now():
-#    return str(datetime.datetime.now())
 
 def info(df):
     # Print debug info
@@ -45,21 +47,29 @@ def info(df):
 
 def linePlot(df):
     df.plot()
+    #plt.xlabel('Date (2010-2019)')
+    plt.ylabel('Temperature')
     #plt.show()
     plt.savefig('line'+now+'.png')
 
 def scatterPlot(df):
     df.plot(style='k.')
+    #plt.xlabel('Date (2010-2019)')
+    plt.ylabel('Temperature')
     #plt.show()
     plt.savefig('scatter'+now+'.png')
 
 def histogramPlot(df):
     df.hist()
+    plt.xlabel('Temperature')
+    plt.ylabel('Density')
     #plt.show()
     plt.savefig('histogram'+now+'.png')
 
 def densityPlot(df):
     df.plot(kind='kde')
+    plt.xlabel('Temperature')
+    plt.ylabel('Density')
     #plt.show()
     plt.savefig('density'+now+'.png')
 
@@ -68,7 +78,6 @@ def whiskerPlot(df):
     years = pd.DataFrame()
     print(groups.mean())
     for name, group in groups:
-        #print(name)
         print(group.values[0])
         years[name.year] = [y for x in group.values for y in x]
     years.boxplot()
@@ -80,6 +89,8 @@ def yearlyBoxPlot(df):
     df["Year"] = df["Date"].apply(lambda x: x.year)
 
     df.boxplot(column=["Temp"], by="Year")
+    plt.xlabel('Years')
+    plt.ylabel('Temperature')
     #plt.show()
     plt.savefig('yearly'+now+'.png')
 
@@ -89,6 +100,8 @@ def monthlyBoxPlot(df):
     df["Month"] = df["Date"].apply(lambda x: x.month)
 
     df.boxplot(column=["Temp"], by="Month")
+    plt.xlabel('Months')
+    plt.ylabel('Temperature')
     #plt.show()
     plt.savefig('monthly'+now+'.png')
 
@@ -101,8 +114,22 @@ def heatmapPlot(df):
         years[name.year] = group["Temp"].values[0:364]
     years = years.T
     plt.matshow(years, interpolation=None, aspect='auto')
+    plt.xlabel('Days')
+    plt.ylabel('Years')
     #plt.show()
     plt.savefig('heatmap'+now+'.png')
+
+def lagPlot(df):
+    df.drop(columns=["Time"], inplace=True)
+    lag_plot(df)
+    #plt.show()
+    plt.savefig('lag'+now+'.png')
+
+def correlationPlot(df):
+    df.drop(columns=["Time"], inplace=True)
+    autocorrelation_plot(df)
+    #plt.show()
+    plt.savefig('correlation'+now+'.png')
 
 
 if __name__ == "__main__":
@@ -114,5 +141,8 @@ if __name__ == "__main__":
     #whiskerPlot(df)
     #yearlyBoxPlot(df)
     #monthlyBoxPlot(df)
-    heatmapPlot(df)
+    #heatmapPlot(df)
+    #lagPlot(df)
+    correlationPlot(df)
+
 
