@@ -6,3 +6,9 @@ https://medium.com/@stallonejacob/time-series-forecast-a-basic-introduction-usin
 
 TIME SERIES / DATE
 https://pandas.pydata.org/docs/user_guide/timeseries.html
+
+Time Series Forecasting
+Making predictions about the future is called extrapolation in the classical statistical handling of time series data.
+More modern fields focus on the topic and refer to it as time series forecasting.
+Forecasting involves taking models fit on historical data and using them to predict future observations.
+
