@@ -4,13 +4,22 @@
 
 import os
 import cv2
+import random
 import matplotlib.pyplot as plt
 from keras.preprocessing import image
 
 def loadImages(path):
     image_files = [os.path.join(path, filename) for filename in os.listdir(path)]
-    print(image_files[0])
+    print(path)
     return image_files
+
+def preview(x_train):
+    for x in range(100):
+        n = random.randint(0,len(x_train) - 1)
+        plt.subplot(10,10,x+1)
+        plt.axis('off')
+        plt.imshow(x_train[n].reshape(img_rows, img_cols),cmap='gray')
+    plt.show()
 
 def display(image):
     plt.imshow(image)
@@ -23,7 +32,7 @@ def preprocess_dep(data):
     images = []
     labels = []
     for i in range(len(data)):
-        img = cv2.imread(data[i], cv2.IMREAD_GRAYSCALE) 
+        img = cv2.imread(data[i], cv2.IMREAD_GRAYSCALE)
         res = cv2.resize(img, dim, interpolation=cv2.INTER_LINEAR)
         #gray = cv2.cvtColor(res, cv2.COLOR_RGB2GRAY)
         images.append(res)
@@ -48,22 +57,22 @@ def preprocess(data):
 
 def plot_accuracy(history):
     #Plot training & validation accuracy values
-    plt.plot(history.history['acc'])
-    plt.plot(history.history['val_acc'])
+    plt.plot(history.history['accuracy'])
+    #plt.plot(history.history['val_acc'])
     plt.title('Model accuracy')
     plt.ylabel('Accuracy')
     plt.xlabel('Epoch')
-    plt.legend(['Train', 'Test'], loc='upper left')
+    #plt.legend(['Train', 'Test'], loc='upper left')
     plt.show()
 
-def plot_loss(loss):
+def plot_loss(history):
     # Plot training & validation loss values
     plt.plot(history.history['loss'])
-    plt.plot(history.history['val_loss'])
+    #plt.plot(history.history['val_loss'])
     plt.title('Model loss')
     plt.ylabel('Loss')
     plt.xlabel('Epoch')
-    plt.legend(['Train', 'Test'], loc='upper left')
+    #plt.legend(['Train', 'Test'], loc='upper left')
     plt.show()
 
 def write_model(model):
@@ -74,7 +83,7 @@ def write_model(model):
     # serialize weights to HDF5
     model.save_weights("model.h5")
     print("Saved model to disk")
- 
+
 def load_model():
     # load json and create model
     from keras.models import model_from_json
