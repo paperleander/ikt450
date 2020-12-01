@@ -11,7 +11,6 @@ import pandas as pd
 from helpers import *
 
 
-# evaluate a single model
 def evaluate(model_func, train, test):
     history = [x for x in train]
 
@@ -59,9 +58,9 @@ dataset = pd.read_csv(test_path, header=0, index_col=0, parse_dates=True, squeez
 train, test = split_dataset(dataset.values)
 
 models = dict()
-#models['daily'] = daily_persistence
-#models['Last week'] = weekly_persistence
-#models['Week last year'] = week_one_year_ago_persistence
+models['daily'] = daily_persistence
+models['Last week'] = weekly_persistence
+models['Week last year'] = week_one_year_ago_persistence
 models['Average Week last 9 years'] = week_average_each_year_persistence
 
 all_scores = list()

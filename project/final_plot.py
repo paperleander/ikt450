@@ -28,9 +28,7 @@ for fi in files:
 
 print(jsons)
 
-#df = pd.DataFrame(jsons)
 days = [ ' mon ' , ' tue ' , ' wed ' , ' thr ' , ' fri ' , ' sat ', ' sun ' ]
-
 for model in jsons.items():
     name = model[0].split(".")[0]
     data = model[1]

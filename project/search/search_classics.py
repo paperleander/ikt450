@@ -50,7 +50,7 @@ dataset = pd.read_csv(test_path, header=0, index_col=0, parse_dates=True, squeez
 train, test = split_dataset(dataset.values)
 
 models = dict()
-#models['ar'] = ar_forecast
+models['ar'] = ar_forecast
 models['arima'] = arima_forecast
 
 days = [ ' mon ' , ' tue ' , ' wed ' , ' thr ' , ' fri ' , ' sat ', ' sun ' ]
@@ -69,7 +69,6 @@ for p in p_values:
             for name, func in models.items():
                 try:
                     params = (p,d,q)
-                    #print(params)
                     score, scores, params = evaluate(func, train, test, params)
                     #summarize_scores(name, score, scores)
                     #plt.plot(days, scores, marker= 'o' , label=name)

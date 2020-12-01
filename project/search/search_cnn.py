@@ -1,4 +1,3 @@
-# naive forecast strategies for the power usage dataset
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -70,10 +69,10 @@ def to_supervised(train, n_input, n_out=7):
         in_start += 1
     return array(X), array(y)
 
-# build and train model
 def build_model(train, n_input, params):
     # prepare data
     train_x, train_y = to_supervised(train, n_input)
+
     # define parameters
     verbose, epochs, batch_size = 0, 20, 4
     n_timesteps = train_x.shape[1]
@@ -97,12 +96,9 @@ def build_model(train, n_input, params):
 def forecast(model, history, n_input):
     data = array(history)
     data = data.reshape((data.shape[0]*data.shape[1], 1))
-    # retrieve last observations for input data
     input_x = data[-n_input:, 0]
     input_x = input_x.reshape((1, len(input_x), 1))
-    # forecast the next week
     yhat = model.predict(input_x, verbose=0)
-    # we only want the vector forecast
     yhat = yhat[0]
     return yhat
 
@@ -116,22 +112,17 @@ def evaluate_cnn(train, test, n_input, params):
     for i in range(len(test)):
         yhat_sequence = forecast(model, history, n_input)
         predictions.append(yhat_sequence)
-        # get real observation and add to history for predicting the next week
         history.append(test[i, :])
-    # evaluate predictions days for each week
     predictions = array(predictions)
     score, scores = evaluate_forecasts(test[:, :], predictions)
     return score, scores
 
 
-# load data
 test_path = '../data/landvik/landvik_2010-2019.csv'
 dataset = pd.read_csv(test_path, header=0, index_col=0, parse_dates=True, squeeze=True)
 
-# split into train and test
 train, test = split_dataset(dataset.values)
 
-#all_inputs = [2912]
 n_input = 112
 averages = list()
 filters = [8, 16, 32, 64, 128, 256]

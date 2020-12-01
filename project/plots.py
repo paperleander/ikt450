@@ -49,28 +49,28 @@ def linePlot(df):
     df.plot()
     #plt.xlabel('Date (2010-2019)')
     plt.ylabel('Temperature')
-    #plt.show()
+    plt.show()
     plt.savefig('line'+now+'.png')
 
 def scatterPlot(df):
     df.plot(style='k.')
     #plt.xlabel('Date (2010-2019)')
     plt.ylabel('Temperature')
-    #plt.show()
+    plt.show()
     plt.savefig('scatter'+now+'.png')
 
 def histogramPlot(df):
     df.hist()
     plt.xlabel('Temperature')
     plt.ylabel('Density')
-    #plt.show()
+    plt.show()
     plt.savefig('histogram'+now+'.png')
 
 def densityPlot(df):
     df.plot(kind='kde')
     plt.xlabel('Temperature')
     plt.ylabel('Density')
-    #plt.show()
+    plt.show()
     plt.savefig('density'+now+'.png')
 
 def whiskerPlot(df):
@@ -81,7 +81,7 @@ def whiskerPlot(df):
         print(group.values[0])
         years[name.year] = [y for x in group.values for y in x]
     years.boxplot()
-    #plt.show()
+    plt.show()
     plt.savefig('whisker'+now+'.png')
 
 def yearlyBoxPlot(df):
@@ -91,7 +91,7 @@ def yearlyBoxPlot(df):
     df.boxplot(column=["Temp"], by="Year")
     plt.xlabel('Years')
     plt.ylabel('Temperature')
-    #plt.show()
+    plt.show()
     plt.savefig('yearly'+now+'.png')
 
 def monthlyBoxPlot(df):
@@ -102,7 +102,7 @@ def monthlyBoxPlot(df):
     df.boxplot(column=["Temp"], by="Month")
     plt.xlabel('Months')
     plt.ylabel('Temperature')
-    #plt.show()
+    plt.show()
     plt.savefig('monthly'+now+'.png')
 
 def heatmapPlot(df):
@@ -116,33 +116,33 @@ def heatmapPlot(df):
     plt.matshow(years, interpolation=None, aspect='auto')
     plt.xlabel('Days')
     plt.ylabel('Years')
-    #plt.show()
+    plt.show()
     plt.savefig('heatmap'+now+'.png')
 
 def lagPlot(df):
     df.drop(columns=["Time"], inplace=True)
     lag_plot(df)
-    #plt.show()
+    plt.show()
     plt.savefig('lag'+now+'.png')
 
 def correlationPlot(df):
     df.drop(columns=["Time"], inplace=True)
     autocorrelation_plot(df)
-    #plt.show()
+    plt.show()
     plt.savefig('correlation'+now+'.png')
 
 
 if __name__ == "__main__":
-    #info(df)
-    #linePlot(df)
-    #scatterPlot(df)
-    #histogramPlot(df)
-    #densityPlot(df)
-    #whiskerPlot(df)
-    #yearlyBoxPlot(df)
-    #monthlyBoxPlot(df)
-    #heatmapPlot(df)
-    #lagPlot(df)
+    info(df)
+    linePlot(df)
+    scatterPlot(df)
+    histogramPlot(df)
+    densityPlot(df)
+    whiskerPlot(df)
+    yearlyBoxPlot(df)
+    monthlyBoxPlot(df)
+    heatmapPlot(df)
+    lagPlot(df)
     correlationPlot(df)
 
 

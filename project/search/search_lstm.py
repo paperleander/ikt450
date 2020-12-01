@@ -1,4 +1,3 @@
-# naive forecast strategies for the power usage dataset
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -98,12 +97,9 @@ def build_model(train, n_input, params):
 def forecast(model, history, n_input):
     data = array(history)
     data = data.reshape((data.shape[0]*data.shape[1], 1))
-    # retrieve last observations for input data
     input_x = data[-n_input:, 0]
     input_x = input_x.reshape((1, len(input_x), 1))
-    # forecast the next week
     yhat = model.predict(input_x, verbose=0)
-    # we only want the vector forecast
     yhat = yhat[0]
     return yhat
 
@@ -116,9 +112,7 @@ def evaluate(train, test, n_input, params):
     for i in range(len(test)):
         yhat_sequence = forecast(model, history, n_input)
         predictions.append(yhat_sequence)
-        # get real observation and add to history for predicting the next week
         history.append(test[i, :])
-    # evaluate predictions days for each week
     predictions = array(predictions)
     score, scores = evaluate_forecasts(test[:, :], predictions)
     return score, scores
